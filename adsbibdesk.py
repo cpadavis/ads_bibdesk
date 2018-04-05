@@ -84,7 +84,8 @@ except ImportError:
         webbrowser.open(url)
         sys.exit()
 
-from htmlentitydefs import name2codepoint
+# from htmlentitydefs import name2codepoint
+from html.entities import name2codepoint
 
 try:
     from HTMLParser import HTMLParser
@@ -291,7 +292,10 @@ def process_token(article_token, prefs, bibdesk):
         return False
 
     # get PDF first
-    pdf = ads_parser.get_pdf()
+    try:
+        pdf = ads_parser.get_pdf()
+    except:
+        pdf = 'failed'
 
     # TODO refactor this out into a 'show_pdf' function
     if prefs['options'].get('only_pdf'):
